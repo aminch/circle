@@ -2,10 +2,6 @@
 name: "Feature request"
 about: "Suggest a new feature for Circle"
 title: "[Feature] "
-assignee: ''
-label: ''
-project: ''
-milestone: ''
 
 ---
 

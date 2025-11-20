@@ -2,10 +2,6 @@
 name: "Bug report"
 about: "Report a bug in Circle"
 title: "[Bug] "
-assignee: ''
-label: ''
-project: ''
-milestone: ''
 
 ---
 
