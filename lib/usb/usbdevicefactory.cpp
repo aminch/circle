@@ -37,6 +37,7 @@
 #include <circle/usb/usbgamepadxbox360.h>
 #include <circle/usb/usbgamepadxboxone.h>
 #include <circle/usb/usbgamepadswitchpro.h>
+#include <circle/usb/usbm30.h>
 #include <circle/usb/usbprinter.h>
 #include <circle/usb/smsc951x.h>
 #include <circle/usb/lan7800.h>
@@ -134,6 +135,10 @@ CUSBFunction *CUSBDeviceFactory::GetDevice (CUSBFunction *pParent, CString *pNam
 	{
 		pResult = new CUSBGamePadXbox360Device (pParent);
 	}
+	else if (pName->Compare ("ven0ca3-24") == 0)	// 8BitDo M30 6B receiver mode
+	{
+		pResult = new CUSBGamePadStandardDevice (pParent);
+	}
 	else if (   pName->Compare ("ven45e-2d1") == 0		// XBox One Controller
 		 || pName->Compare ("ven45e-2dd") == 0		// XBox One Controller (FW 2015)
 		 || pName->Compare ("ven45e-2e3") == 0		// XBox One Elite Controller
@@ -144,7 +149,9 @@ CUSBFunction *CUSBDeviceFactory::GetDevice (CUSBFunction *pParent, CString *pNam
 	}
 	else if (pName->Compare ("ven57e-2009") == 0)
 	{
-		pResult = new CUSBGamePadSwitchProDevice (pParent);
+		pResult = CUSBM30Device::IsM30Receiver (pParent)
+			? static_cast<CUSBFunction *> (new CUSBM30Device (pParent))
+			: static_cast<CUSBFunction *> (new CUSBGamePadSwitchProDevice (pParent));
 	}
 #endif
 #ifndef EXCLUDE_USB_PRINTER
